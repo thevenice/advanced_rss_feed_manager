@@ -106,25 +106,24 @@ class AdvancedRSSFeedManager {
         // Updated responsive CSS
         echo '<style>
             .rss-feed-container {
+                max-width: 1200px;
                 display: grid;
                 grid-template-columns: 1fr;
                 gap: 20px;
                 padding: 20px;
             }
             .rss-feed-item {
+                width: 100%; // Ensure full width
+                aspect-ratio: 1 / 1; // Maintain 1:1 ratio for the overall card
+                display: flex;
+                flex-direction: column;
                 border: 1px solid #ddd;
                 border-radius: 8px;
                 overflow: hidden;
-                display: flex;
-                flex-direction: column;
                 transition: box-shadow 0.3s ease;
             }
-            .rss-feed-item:hover {
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            }
             .rss-feed-item img {
-                width: 100%;
-                height: 200px;
+                height: 100%; // Make image fill the card height
                 object-fit: cover;
             }
             .rss-feed-content {
@@ -134,16 +133,19 @@ class AdvancedRSSFeedManager {
                 flex-direction: column;
             }
             .rss-feed-title {
-                font-size: 16px;
+                font-size: 12.8px;
                 margin-bottom: 10px;
             }
             .rss-feed-description {
-                font-size: 14px;
+                font-size: 11.2px;
                 color: #666;
                 flex-grow: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
             .rss-feed-meta {
-                font-size: 12px;
+                font-size: 9.6px;
                 color: #888;
                 margin-top: 10px;
             }
@@ -152,27 +154,27 @@ class AdvancedRSSFeedManager {
                     grid-template-columns: repeat(3, 1.5fr);
                 }
                 .rss-feed-title {
-                    font-size: 18px;
+                    font-size: 14.4px;
                 }
                 .rss-feed-description {
-                    font-size: 15px;
+                    font-size: 12px;
                 }
                 .rss-feed-meta {
-                    font-size: 13px;
+                    font-size: 10.4px;
                 }
             }
             @media (min-width: 1024px) {
                 .rss-feed-title {
-                    font-size: 20px;
-                }
-                .rss-feed-description {
                     font-size: 16px;
                 }
+                .rss-feed-description {
+                    font-size: 12.8px;
+                }
                 .rss-feed-meta {
-                    font-size: 14px;
+                    font-size: 11.2px;
                 }
                 .rss-feed-item img {
-                    height: 250px;
+                    height: 400px;
                 }
             }
         </style>';

@@ -23,6 +23,16 @@ To display RSS feeds on a page or post, use the following shortcode:
 - Replace `Feed Name`, `Feed URL`, and `Category` with your desired values.
 - You can also set the number of items per page and the current page using the `per_page` and `paged` attributes.
 
+### Images
+- **Plugin UI in Admin Panel**:
+  ![Admin Panel UI](assets/image1.png)
+
+- **How to Use Shortcode**:
+  ![Shortcode Usage](assets/image2.png)
+
+- **Plugin UI in Effect**:
+  ![Plugin UI Effect](assets/image3.png)
+
 ## Contributing
 Contributions are welcome! Feel free to fork the repository and submit a pull request.
 

@@ -257,12 +257,40 @@ class AdvancedRSSFeedManager {
     }
 
     private function get_feed_image($item) {
-        $enclosure = $item->get_enclosure();
-        if ($enclosure && $enclosure->get_thumbnail()) {
-            return $enclosure->get_thumbnail();
+        // Check for the enclosure
+        if (method_exists($item, 'get_enclosure')) {
+            $enclosure = $item->get_enclosure();
+            if ($enclosure && method_exists($enclosure, 'get_thumbnail') && $enclosure->get_thumbnail()) {
+                return $enclosure->get_thumbnail();
+            }
         }
-        // You might want to add more methods to extract images from feed items here
-        return '';
+
+        // Check for media:content
+        if (method_exists($item, 'get_media_content')) {
+            $media_content = $item->get_media_content();
+            if (!empty($media_content) && isset($media_content[0]['url'])) {
+                return $media_content[0]['url'];
+            }
+        }
+
+        // Check for <img> tags in the description
+        if (method_exists($item, 'get_description')) {
+            $description = $item->get_description();
+            if ($description && preg_match('/<img[^>]+src="([^">]+)"/', $description, $matches)) {
+                return $matches[1]; // Return the first image found
+            }
+        }
+
+        // Check for <content:encoded> for images
+        if (method_exists($item, 'get_content_encoded')) {
+            $content_encoded = $item->get_content_encoded();
+            if ($content_encoded && preg_match('/<img[^>]+src="([^">]+)"/', $content_encoded, $matches)) {
+                return $matches[1]; // Return the first image found
+            }
+        }
+
+        // Fallback: return a default image or empty string
+        return ''; // You can replace this with a default image URL if desired
     }
 
     private function pagination($total_items, $per_page, $current_page) {

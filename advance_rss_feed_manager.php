@@ -34,6 +34,8 @@ class AdvancedRSSFeedManager {
         register_setting('rss_feed_manager_settings', 'rss_feed_manager_feeds');
         register_setting('rss_feed_manager_settings', 'rss_feed_manager_fallback_image');
         register_setting('rss_feed_manager_settings', 'rss_feed_manager_per_page');
+        // {{ edit_1 }} Add setting for refetch interval
+        register_setting('rss_feed_manager_settings', 'rss_feed_manager_refetch_interval');
     }
 
     public function admin_page() {
@@ -62,6 +64,14 @@ class AdvancedRSSFeedManager {
                         <th scope="row">Items Per Page</th>
                         <td>
                             <input type="number" name="rss_feed_manager_per_page" value="<?php echo esc_attr(get_option('rss_feed_manager_per_page', 10)); ?>" min="1" />
+                        </td>
+                    </tr>
+                    <!-- // {{ edit_2 }} Add input for refetch interval -->
+                    <tr valign="top">
+                        <th scope="row">Refetch Interval (Minutes)</th>
+                        <td>
+                            <input type="number" name="rss_feed_manager_refetch_interval" value="<?php echo esc_attr(get_option('rss_feed_manager_refetch_interval', 60)); ?>" min="1" />
+                            <p class="description">Set the interval for refetching data in minutes.</p>
                         </td>
                     </tr>
                 </table>
@@ -139,7 +149,7 @@ class AdvancedRSSFeedManager {
             }
             @media (min-width: 768px) {
                 .rss-feed-container {
-                    grid-template-columns: repeat(3, 1fr);
+                    grid-template-columns: repeat(3, 1.5fr);
                 }
                 .rss-feed-title {
                     font-size: 18px;

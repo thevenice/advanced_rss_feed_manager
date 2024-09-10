@@ -256,38 +256,14 @@ class AdvancedRSSFeedManager {
         return $items;
     }
 
-private function get_feed_image($item) {
-    // Check for the enclosure
-    $enclosure = $item->get_enclosure();
-    if ($enclosure && $enclosure->get_thumbnail()) {
-        return $enclosure->get_thumbnail();
-    }
-
-    // Check for media:content
-    $media_content = $item->get_media_content();
-    if (!empty($media_content) && isset($media_content[0]['url'])) {
-        return $media_content[0]['url'];
-    }
-
-    // Check for <img> tags in the description
-    $description = $item->get_description();
-    if ($description) {
-        if (preg_match('/<img[^>]+src="([^">]+)"/', $description, $matches)) {
-            return $matches[1]; // Return the first image found
+    private function get_feed_image($item) {
+        $enclosure = $item->get_enclosure();
+        if ($enclosure && $enclosure->get_thumbnail()) {
+            return $enclosure->get_thumbnail();
         }
+        // You might want to add more methods to extract images from feed items here
+        return '';
     }
-
-    // Check for <content:encoded> for images
-    $content_encoded = $item->get_content_encoded();
-    if ($content_encoded) {
-        if (preg_match('/<img[^>]+src="([^">]+)"/', $content_encoded, $matches)) {
-            return $matches[1]; // Return the first image found
-        }
-    }
-
-    // Fallback: return a default image or empty string
-    return ''; // You can replace this with a default image URL if desired
-}
 
     private function pagination($total_items, $per_page, $current_page) {
         $total_pages = ceil($total_items / $per_page);
